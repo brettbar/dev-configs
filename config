@@ -116,19 +116,19 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
+set $ws1 "1dev"
+set $ws2 "2web"
+set $ws3 "3com"
+set $ws4 "4srv"
+set $ws5 "5spt" 
+set $ws6 "6msc"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+1 workspace number $ws1
+bindsym $mod+1 workspace number $ws1 
 bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
 bindsym $mod+4 workspace number $ws4
@@ -196,6 +196,7 @@ bar {
     i3bar_command i3bar -t
     tray_output none
     height 24 
+    strip_workspace_numbers yes
     colors {
         #background #20242c
 		background #00000000
@@ -216,6 +217,6 @@ bar {
 # class                 border  backgr. text    indicator child_border                                                                     
 client.focused_inactive #0d1010 #212121 #d9d9d9 #0d1010 #063340                                                                            
 client.unfocused        #0d1010 #212121 #d9d9d9 #424242 #063340                                                                            
-client.focused          #363636  #cecece #000000 #363636 #363636   
+client.focused          #ffaa00 #cecece #000000 #ffaa00 #ffaa00
 
 
