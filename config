@@ -21,7 +21,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 #font pango:monospace 8
-font pango:monospace 14 
+font pango:FontAwesome 14 
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -44,6 +44,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 10" 
+bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 10"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -189,6 +192,7 @@ gaps inner 15
 bar {
 	position top
     status_command i3status
+    #status_command i3blocks
     i3bar_command i3bar -t
     tray_output none
     height 24 
@@ -198,12 +202,12 @@ bar {
 		#statusline #4c7899
 		statusline #ffffff
 		#separator #4c7899
-		separator #aa00ff
+		separator #ffaa00
 
 		#focused_workspace  #00000000 #4c7899   #ffffff
-		focused_workspace  #00000000 #363636 #ffffff
+		focused_workspace  #ffaa00 #ffaa00 #000000
         active_workspace   #00000000 #00000000 #ffffff
-        inactive_workspace #00000000 #00000000 #888888
+        inactive_workspace #00000000 #00000000 #000000
         urgent_workspace   #00000000 #00000000 #900000
         binding_mode       #00000000 #00000000 #900000
     }
