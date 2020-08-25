@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/brettbar/work/web-sdk/src'
+let g:netrw_dirhist_2='/home/brettbar/work/web-sdk'
+let g:netrw_dirhist_1='/home/brettbar/work/web-sdk/src'
+let g:netrw_dirhist_0='/home/brettbar/work/web-sdk/test'
+let g:netrw_dirhist_9='/home/brettbar/work/web-sdk'
+let g:netrw_dirhist_8='/home/brettbar/work/web-sdk/src'
+let g:netrw_dirhist_7='/home/brettbar/work/web-sdk/test'
+let g:netrw_dirhist_6='/home/brettbar/work/web-sdk'
+let g:netrw_dirhist_5='/home/brettbar/work/web-sdk/src'
+let g:netrw_dirhist_4='/home/brettbar/work/web-sdk/test'
