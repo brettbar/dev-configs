@@ -17,7 +17,7 @@ set clipboard+=unnamedplus
 set hidden
 set scrolloff=8
 set noshowmode
-set updatetime=50
+set updatetime=10
 set shortmess+=c
 set signcolumn=yes
 
@@ -32,15 +32,19 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons'
-Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
-Plug 'scrooloose/nerdcommenter'
-Plug 'ervandew/supertab'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-utils/vim-man'
+Plug 'mbbill/undotree'
+Plug 'sheerun/vim-polyglot'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'stsewd/fzf-checkout.vim'
+Plug 'vim-airline/vim-airline' " Lean & mean status/tabline for vim that's light as air
+"Plug 'vim-airline/vim-airline-themes' " airline theme...
 call plug#end()
+
+
 
 set termguicolors
 colorscheme gruvbox 
@@ -49,6 +53,12 @@ highlight NonText ctermbg=NONE guibg=NONE
 highlight StatusLine ctermbg=NONE cterm=NONE
 "au ColorScheme * hi Normal ctermbg=none guibg=none
 
+let g:airline_powerline_fonts = 1
+let g:airline_theme='gruvbox'
+
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection='0'
+
 let t:is_transparent = 0                                                                        
 function! Toggle_transparent_background()                                                       
   if t:is_transparent == 0                                                                      
@@ -56,8 +66,8 @@ function! Toggle_transparent_background()
     let t:is_transparent = 1                                                                    
   else                                                                                          
     hi Normal guibg=NONE ctermbg=NONE                                                           
-    let t:is_transparent = 0                                                                    
-  endif                                                                                         
+    let t:is_transparent = 0
+  endif
 endfunction                                                                                     
 nnoremap <C-t> :call Toggle_transparent_background()<CR>  
 
@@ -73,9 +83,12 @@ function! Toggle_dark_mode()
 endfunction
 nnoremap <C-b> :call Toggle_dark_mode()<CR>
 
+:call Toggle_transparent_background()
+:call Toggle_dark_mode()
+
+let loaded_matchparen = 1
 let mapleader = " "
 
-let g:NERDTreeIgnore = ['^node_modules$']
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 
@@ -87,21 +100,30 @@ let g:coc_global_extensions = [
   \ 'coc-prettier', 
   \ 'coc-json', 
   \ ]
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
 
+let g:netrw_browse_split = 2
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+let g:fzf_checkout_track_key = 'ctrl-t'
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-
-nmap <C-n> :NERDTreeToggle<CR>
-vmap <C-l> <plug>NERDCommenterToggle
-nmap <C-l> <plug>NERDCommenterToggle
-
+nnoremap <leader>gc :GCheckout<CR>
+nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>pw :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>u :UndotreeShow<CR>
+nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <Leader>ps :Rg<SPACE>
+nnoremap <C-p> :GFiles<CR>
+nnoremap <Leader>pf :Files<CR>
 nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>+ :vertical resize +5<CR>
 nnoremap <Leader>- :vertical resize -5<CR>
@@ -109,6 +131,7 @@ nnoremap <Leader>rp :resize 100<CR>
 nnoremap <Leader>ee oif err != nil {<CR>log.Fatalf("%+v\n", err)<CR>}<CR><esc>kkI<esc>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+vnoremap X "_d
 
 
 inoremap <C-c> <esc>
