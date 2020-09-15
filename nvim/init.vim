@@ -1,4 +1,6 @@
 syntax on
+filetype on
+filetype plugin indent on
 
 set noerrorbells
 set tabstop=4
@@ -20,7 +22,7 @@ set noshowmode
 set updatetime=10
 set shortmess+=c
 set signcolumn=yes
-
+set mouse=a
 set colorcolumn=120
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
@@ -41,7 +43,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'vim-airline/vim-airline' " Lean & mean status/tabline for vim that's light as air
-"Plug 'vim-airline/vim-airline-themes' " airline theme...
+Plug 'vim-airline/vim-airline-themes' " airline theme...
+Plug 'jceb/vim-orgmode'
 call plug#end()
 
 
@@ -52,6 +55,8 @@ highlight Normal ctermbg=NONE guibg=NONE
 highlight NonText ctermbg=NONE guibg=NONE
 highlight StatusLine ctermbg=NONE cterm=NONE
 "au ColorScheme * hi Normal ctermbg=none guibg=none
+let purescript_indent_let = 4
+
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='gruvbox'
