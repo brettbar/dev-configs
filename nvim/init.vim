@@ -34,17 +34,18 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
-Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
 Plug 'tpope/vim-fugitive'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'sheerun/vim-polyglot'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'stsewd/fzf-checkout.vim'
 Plug 'vim-airline/vim-airline' " Lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes' " airline theme...
 Plug 'jceb/vim-orgmode'
+
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 
@@ -88,14 +89,16 @@ function! Toggle_dark_mode()
 endfunction
 nnoremap <C-b> :call Toggle_dark_mode()<CR>
 
+if executable('rg')
+    let g:rg_derive_root='true'
+endif
+
+
 :call Toggle_transparent_background()
 :call Toggle_dark_mode()
 
 let loaded_matchparen = 1
 let mapleader = " "
-
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
 
 let g:coc_global_extensions = [
   \ 'coc-snippets',
@@ -116,16 +119,21 @@ let g:fzf_checkout_track_key = 'ctrl-t'
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0]
+
 nnoremap <leader>gc :GCheckout<CR>
-nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
+"nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>pw :Rg <C-R>=expand("<cword>")<CR><CR>
+"nnoremap <leader>pw :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <Leader>ps :Rg<SPACE>
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>pf :Files<CR>
@@ -137,7 +145,7 @@ nnoremap <Leader>ee oif err != nil {<CR>log.Fatalf("%+v\n", err)<CR>}<CR><esc>kk
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 vnoremap X "_d
-
+map <Leader>n :NERDTreeToggle<CR>
 
 inoremap <C-c> <esc>
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
