@@ -1,6 +1,0 @@
-{
-  "suggest.noselect": false,
-  "coc.preferences.formatOnSaveFiletypes": ["javacript", "typescript", "json"],
-  "prettier.tabWidth": 4,
-  "prettier.useTabs": false
-}
